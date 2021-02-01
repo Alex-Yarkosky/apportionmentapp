@@ -5,6 +5,21 @@ for line in states_text:
     STATES.append(stripped_line)
 print(STATES)
 
+def get_state_populations(year):
+    ''' Input: year
+    Summary: gets populations for each states for given census year from a text file
+    Return: list of state populations ordered alphabetically by state name '''
+
+    try:
+        population_text = open('../resources/census_data/{}population.txt', 'r').format(year)
+    except:
+        raise Exception('Please give a census year from 1900 to 2010 as input')
+    population = []
+    for line in population_text:
+        stripped_line = line.strip()
+        population.append(stripped_line)
+    return population
+
 def district_pop_difference(highest, lowest):
     return highest - lowest
 
