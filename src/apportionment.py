@@ -1,3 +1,10 @@
+states_text = open('../resources/states.txt', 'r')
+STATES = []
+for line in states_text:
+    stripped_line = line.strip()
+    STATES.append(stripped_line)
+print(STATES)
+
 def district_pop_difference(highest, lowest):
     return highest - lowest
 
