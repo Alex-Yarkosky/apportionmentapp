@@ -29,7 +29,7 @@ def district_pop_difference(highest, lowest):
 def find_quota(state_pop, divisor):
     ''' Input: population of a state, selected divisor
     Return: population of a state divided by the given divisor '''
-    
+
     return state_pop / divisor
 
 def find_national_pop(year):
@@ -43,7 +43,8 @@ def hamilton_method(house_size, national_pop):
     Assign any seats which are yet unapportioned to those states having the largest fractions or remainders.
     -Fair Representation page 17 '''
 
-    ''' ADD PERSONAL SUMMARY '''
+    ''' Find quotas for each state assigning seats for the whole numbers of each quota.
+    Assign the rest of the seats to states with the largest decimals in their quotas. '''
 
     return 0
 
@@ -53,7 +54,7 @@ def jefferson_method():
     Give to each each state its whole number.
     -Fair Representation page 18 '''
 
-    ''' ADD PERSONAL SUMMARY '''
+    ''' Choose a divisor such that dividing the state populations by produces quotients whose whole numbers add up to the desired house size. '''
 
     return 0
 
@@ -76,7 +77,7 @@ def adams_method():
     -Fair Representation page 28 '''
 
     ''' Inversion of the Jefferson Method.
-    Rounds quotients up instead of down. '''
+    Rounds all quotients up instead of down. '''
 
     return 0
 
@@ -86,7 +87,8 @@ def webster_method():
     Give to each state its whole number.
     -Fair Representation page 32 '''
 
-    ''' ADD PERSONAL SUMMARY '''
+    ''' Modification of the Jefferson Method.
+    Rounds quotients to the nearest whole number. '''
 
     return 0
 
@@ -95,7 +97,10 @@ def huntington_hill_method():
     Give to each state a number of seats so that no transfer of any one seat can reduce the percentage difference in represenation between those states.
     -Fair Representation page 48 '''
 
-    ''' ADD PERSONAL SUMMARY '''
+    ''' Prioritizes relative difference over absolute difference.
+    Accounts for the fact that adding a seat to a state with few assigned to it has more of an effect than adding that seat to a state with a lot already assigned.
+    Divides population of a state by the square root of the number of assigned seats multipled by the number of assigned seats minus 1.
+    Uses results from that equation from each state to assign a seat to the seat with the largest result. '''
 
     return 0
 
