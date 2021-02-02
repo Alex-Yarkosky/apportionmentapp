@@ -21,9 +21,13 @@ def get_state_populations(year):
     return population
 
 def district_pop_difference(highest, lowest):
+    ''' Input: most populous district (state average), least populous district (state average)
+    Return: difference of most populous district minus least poplous district '''
     return highest - lowest
 
 def find_quota(state_pop, divisor):
+    ''' Input: population of a state, selected divisor
+    Return: population of a state divided by the given divisor '''
     return state_pop / divisor
 
 def find_national_pop(year):
