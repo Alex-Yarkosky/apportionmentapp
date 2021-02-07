@@ -1,17 +1,11 @@
-states_text = open('../resources/states.txt', 'r')
-STATES = []
-for line in states_text:
-    stripped_line = line.strip()
-    STATES.append(stripped_line)
-print(STATES)
-
 def get_state_populations(year):
     ''' Input: year
     Summary: gets populations for each states for given census year from a text file
     Return: list of state populations ordered alphabetically by state name '''
 
     try:
-        population_text = open('../resources/census_data/{}population.txt', 'r').format(year)
+        file = ('../resources/census_data/{}population.txt').format(year)
+        population_text = open(file, 'r')
     except:
         raise Exception('Please give a census year from 1900 to 2010 as input')
     population = []
@@ -34,7 +28,11 @@ def find_quota(state_pop, divisor):
 
 def find_national_pop(year):
     natl_pop = 0
+    states = get_state_populations(year)
     # loop through every state for the given year and add their pop to natl_pop
+    for state in states:
+        natl_pop += int(state)
+    print(natl_pop)
     return natl_pop
 
 def hamilton_method(house_size, national_pop):
@@ -116,3 +114,10 @@ def dean_method():
     return 0
 
 # Create function to loop through multiple runs for data collection purposes (varying house sizes for 2010 data and varying years for 435 seats)
+
+states_text = open('../resources/states.txt', 'r')
+STATES = []
+for line in states_text:
+    stripped_line = line.strip()
+    STATES.append(stripped_line)
+print(STATES)
