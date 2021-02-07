@@ -1,5 +1,5 @@
 def get_state_populations(year):
-    ''' Input: year
+    ''' Parameters: census year
     Summary: gets populations for each states for given census year from a text file
     Return: list of state populations ordered alphabetically by state name '''
 
@@ -7,33 +7,38 @@ def get_state_populations(year):
         file = ('../resources/census_data/{}population.txt').format(year)
         population_text = open(file, 'r')
     except:
-        raise Exception('Please give a census year from 1900 to 2010 as input')
+        raise Exception('Please give a census year from 1900 to 2010 as Parameters')
     population = []
     for line in population_text:
         stripped_line = line.strip()
         population.append(stripped_line)
     return population
 
+def find_national_pop(year):
+    ''' Parameters: census year
+    Summary: combines state populations to come up with a national population
+    Return: combined population of all 50 states '''
+
+    natl_pop = 0
+    states = get_state_populations(year)
+
+    # Loop through every state for the given year and add their pop to natl_pop
+    for state in states:
+        natl_pop += int(state)
+    print(natl_pop)
+    return natl_pop
+
 def district_pop_difference(highest, lowest):
-    ''' Input: most populous district (state average), least populous district (state average)
+    ''' Parameters: most populous district (state average), least populous district (state average)
     Return: difference of most populous district minus least poplous district '''
 
     return highest - lowest
 
 def find_quota(state_pop, divisor):
-    ''' Input: population of a state, selected divisor
+    ''' Parameters: population of a state, selected divisor
     Return: population of a state divided by the given divisor '''
 
     return state_pop / divisor
-
-def find_national_pop(year):
-    natl_pop = 0
-    states = get_state_populations(year)
-    # loop through every state for the given year and add their pop to natl_pop
-    for state in states:
-        natl_pop += int(state)
-    print(natl_pop)
-    return natl_pop
 
 def hamilton_method(house_size, national_pop):
     ''' Choose the size of the house to be apportioned.
