@@ -34,13 +34,19 @@ def district_pop_difference(highest, lowest):
 
     return highest - lowest
 
-def find_quota(state_pop, divisor):
-    ''' Parameters: population of a state, selected divisor
+def find_divisor(house_size, national_pop):
+    ''' Parameters: size of the House, population of the US states
+    Return: divisor created from the national population over the house size '''
+
+    return int(national_pop / house_size)
+
+def find_quota(state_pop, house_size, national_pop):
+    ''' Parameters: population of a state, size of the House, population of the US states
     Return: population of a state divided by the given divisor '''
 
-    return state_pop / divisor
+    return int(state_pop / find_divisor(house_size, national_pop)) # figure out rounding later
 
-def hamilton_method(house_size, national_pop):
+def hamilton_method(house_size, year, national_pop):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
     Assign any seats which are yet unapportioned to those states having the largest fractions or remainders.
@@ -49,9 +55,17 @@ def hamilton_method(house_size, national_pop):
     ''' Find quotas for each state assigning seats for the whole numbers of each quota.
     Assign the rest of the seats to states with the largest decimals in their quotas. '''
 
+    state_pops = get_state_populations(year)
+    quotas = []
+
+    for state_pop in state_pops:
+        quotas.append(str(find_quota(state_pop, house_size, national_pop)))
+
+    print(quotas)
+
     return 0
 
-def jefferson_method():
+def jefferson_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find a divisor x so that the whole numbers contained in the quotients of the states sum to the required total.
     Give to each each state its whole number.
@@ -61,7 +75,7 @@ def jefferson_method():
 
     return 0
 
-def lowndes_method():
+def lowndes_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
     Adjust each state state's remainder by dividing by the whole number in its quota.
@@ -73,7 +87,7 @@ def lowndes_method():
 
     return 0
 
-def adams_method():
+def adams_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find a divisor x so taht the smallest whole numbers containing the quotients of the states sum to the required total.
     Give to each state its whole number.
@@ -84,7 +98,7 @@ def adams_method():
 
     return 0
 
-def webster_method():
+def webster_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find a divisor x so that the whole numbers nearest to the quotients of the states sum to the required total.
     Give to each state its whole number.
@@ -95,7 +109,7 @@ def webster_method():
 
     return 0
 
-def huntington_hill_method():
+def huntington_hill_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Give to each state a number of seats so that no transfer of any one seat can reduce the percentage difference in represenation between those states.
     -Fair Representation page 48 '''
@@ -107,7 +121,7 @@ def huntington_hill_method():
 
     return 0
 
-def dean_method():
+def dean_method(house_size, year):
     ''' Choose the house to be apportioned.
     Find a divisor x so that the whole numbers which make the average constituencies of the states closest to x sum to the required total.
     Give to each state its whole number.
@@ -125,4 +139,6 @@ STATES = []
 for line in states_text:
     stripped_line = line.strip()
     STATES.append(stripped_line)
-print(STATES)
+# print(STATES)
+
+hamilton_method(435, 2010, find_national_pop(2010))
