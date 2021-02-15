@@ -1,3 +1,5 @@
+import math
+
 def get_state_populations(year):
     ''' Parameters: census year
     Summary: gets populations for each states for given census year from a text file
@@ -44,7 +46,7 @@ def find_quota(state_pop, house_size, national_pop):
     ''' Parameters: population of a state, size of the House, population of the US states
     Return: population of a state divided by the given divisor '''
 
-    return int(state_pop / find_divisor(house_size, national_pop)) # figure out rounding later
+    return int(state_pop) / find_divisor(house_size, national_pop)
 
 def hamilton_method(house_size, year, national_pop):
     ''' Choose the size of the house to be apportioned.
@@ -57,11 +59,30 @@ def hamilton_method(house_size, year, national_pop):
 
     state_pops = get_state_populations(year)
     quotas = []
+    quotas_whole = []
+    quotas_decimal = []
 
+    # find quotas for each state
     for state_pop in state_pops:
-        quotas.append(str(find_quota(state_pop, house_size, national_pop)))
+        quota = find_quota(state_pop, house_size, national_pop)
+        quotas.append(quota)
+        quotas_whole.append(math.floor(quota))
+        quotas_decimal.append(quota - math.floor(quota))
 
     print(quotas)
+    print(quotas_whole)
+    print(quotas_decimal)
+
+    # find how many seats have been assigned so far
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    print(seats_assigned)
+
+    remaining_seats = house_size - seats_assigned
+
+    # TODO: find highest quota_decimal then asssign that state an extra seat and set decimal to 0 until remaing seats are assigned
 
     return 0
 
