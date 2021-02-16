@@ -71,7 +71,7 @@ def hamilton_method(house_size, year, national_pop):
 
     print(quotas)
     print(quotas_whole)
-    print(quotas_decimal)
+    # print(quotas_decimal)
 
     # find how many seats have been assigned so far
     seats_assigned = 0
@@ -84,7 +84,32 @@ def hamilton_method(house_size, year, national_pop):
 
     # TODO: find highest quota_decimal then asssign that state an extra seat and set decimal to 0 until remaing seats are assigned
 
-    return 0
+    # assign remaining seats one by one to states whose quotas have the largest decimals
+    for i in range (0, remaining_seats):
+        highest_value = 0
+        highest_index = 0 # be mindul of this otherwise rip Alabama
+        index = 0
+        # find largest decimal in the state quotas
+        for decimal in quotas_decimal:
+            if decimal > highest_value:
+                highest_value = decimal
+                highest_index = index
+            # increment index to keep track of which state the decimal belongs to
+            index += 1
+        # assign seat to state with highest decimal in their quota
+        quotas_whole[highest_index] += 1
+        # remove decimal so state does not get selected again
+        quotas_decimal[highest_index] = 0
+
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    print(quotas_whole)
+    # print(quotas_decimal)
+    print(seats_assigned)
+
+    return quotas_whole
 
 def jefferson_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -162,4 +187,7 @@ for line in states_text:
     STATES.append(stripped_line)
 # print(STATES)
 
-hamilton_method(435, 2010, find_national_pop(2010))
+hamilton_app = hamilton_method(435, 2010, find_national_pop(2010))
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(hamilton_app[i]))
