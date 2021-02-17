@@ -27,7 +27,7 @@ def find_national_pop(year):
     # Loop through every state for the given year and add their pop to natl_pop
     for state in states:
         natl_pop += int(state)
-    print(natl_pop)
+    # print(natl_pop)
     return natl_pop
 
 def district_pop_difference(highest, lowest):
@@ -69,8 +69,8 @@ def hamilton_method(house_size, year, national_pop):
         quotas_whole.append(math.floor(quota))
         quotas_decimal.append(quota - math.floor(quota))
 
-    print(quotas)
-    print(quotas_whole)
+    # print(quotas)
+    # print(quotas_whole)
     # print(quotas_decimal)
 
     # find how many seats have been assigned so far
@@ -78,7 +78,7 @@ def hamilton_method(house_size, year, national_pop):
     for quota in quotas_whole:
         seats_assigned += quota
 
-    print(seats_assigned)
+    # print(seats_assigned)
 
     remaining_seats = house_size - seats_assigned
 
@@ -125,9 +125,9 @@ def hamilton_method(house_size, year, national_pop):
     for quota in quotas_whole:
         seats_assigned += quota
 
-    print(quotas_whole)
+    # print(quotas_whole)
     # print(quotas_decimal)
-    print(seats_assigned)
+    # print(seats_assigned)
 
     return quotas_whole
 
@@ -141,7 +141,7 @@ def jefferson_method(house_size, year):
 
     return 0
 
-def lowndes_method(house_size, year):
+def lowndes_method(house_size, year, national_pop):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
     Adjust each state state's remainder by dividing by the whole number in its quota.
@@ -151,7 +151,79 @@ def lowndes_method(house_size, year):
     ''' Modification of the Hamilton Method and how it distributes the final seats.
     Remaining seats go to the seats that would benefit the most from additional representation, typically smaller states. '''
 
-    return 0
+    state_pops = get_state_populations(year)
+    quotas = []
+    quotas_whole = []
+    quotas_decimal = []
+
+    # find quotas for each state
+    for state_pop in state_pops:
+        quota = find_quota(state_pop, house_size, national_pop)
+        quotas.append(quota)
+        quotas_whole.append(math.floor(quota))
+        quotas_decimal.append(quota - math.floor(quota))
+
+    # print(quotas)
+    # print(quotas_whole)
+    # print(quotas_decimal)
+
+    # find how many seats have been assigned so far
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    # print(seats_assigned)
+
+    remaining_seats = house_size - seats_assigned
+
+    # assign seats to any state without one yet first
+    for i in range (0, remaining_seats):
+        index = 0
+        # look for any states with no assigned seats
+        for quota in quotas_whole:
+            if quota == 0:
+                # assign seat to state without any seats yet
+                quotas_whole[index] += 1
+                # remove decimal so state does not get selected again
+                quotas_decimal[index] = 1
+                # increment index to keep track of which state the decimal belongs to
+            index += 1
+
+    # find how many seats have been assigned so far
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    # recalculate remaining seats
+    remaining_seats = house_size - seats_assigned
+
+    # assign remaining seats one by one to states whose quotas have the largest decimals
+    for i in range (0, remaining_seats):
+        lowest_value = 1
+        lowest_index = 0 # be mindul of this otherwise rip Alabama
+        index = 0
+        # find largest decimal in the state quotas
+        for decimal in quotas_decimal:
+            if decimal < lowest_value:
+                # set this state as having the highest decimal
+                lowest_value = decimal
+                lowest_index = index
+            # increment index to keep track of which state the decimal belongs to
+            index += 1
+        # assign seat to state with highest decimal in their quota
+        quotas_whole[lowest_index] += 1
+        # remove decimal so state does not get selected again
+        quotas_decimal[lowest_index] = 1
+
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    # print(quotas_whole)
+    # print(quotas_decimal)
+    # print(seats_assigned)
+
+    return quotas_whole
 
 def adams_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -209,5 +281,14 @@ for line in states_text:
 
 hamilton_app = hamilton_method(435, 2010, find_national_pop(2010))
 
+print('Hamilton Method for 435 seats for 2010')
+
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(hamilton_app[i]))
+
+lowndes_app = lowndes_method(435, 2010, find_national_pop(2010))
+
+print('Lowndes Method for 435 seats for 2010')
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(lowndes_app[i]))
