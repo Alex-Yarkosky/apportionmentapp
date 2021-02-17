@@ -82,7 +82,26 @@ def hamilton_method(house_size, year, national_pop):
 
     remaining_seats = house_size - seats_assigned
 
-    # TODO: find highest quota_decimal then asssign that state an extra seat and set decimal to 0 until remaing seats are assigned
+    # assign seats to any state without one yet first
+    for i in range (0, remaining_seats):
+        index = 0
+        # look for any states with no assigned seats
+        for quota in quotas_whole:
+            if quota == 0:
+                # assign seat to state without any seats yet
+                quotas_whole[index] += 1
+                # remove decimal so state does not get selected again
+                quotas_decimal[index] = 0
+                # increment index to keep track of which state the decimal belongs to
+            index += 1
+
+    # find how many seats have been assigned so far
+    seats_assigned = 0
+    for quota in quotas_whole:
+        seats_assigned += quota
+
+    # recalculate remaining seats
+    remaining_seats = house_size - seats_assigned
 
     # assign remaining seats one by one to states whose quotas have the largest decimals
     for i in range (0, remaining_seats):
@@ -92,6 +111,7 @@ def hamilton_method(house_size, year, national_pop):
         # find largest decimal in the state quotas
         for decimal in quotas_decimal:
             if decimal > highest_value:
+                # set this state as having the highest decimal
                 highest_value = decimal
                 highest_index = index
             # increment index to keep track of which state the decimal belongs to
