@@ -42,13 +42,13 @@ def find_divisor(house_size, national_pop):
 
     return int(national_pop / house_size)
 
-def find_quota(state_pop, house_size, national_pop):
-    ''' Parameters: population of a state, size of the House, population of the US states
+def find_quota(state_pop, divisor):
+    ''' Parameters: population of a state, divisor to divide by
     Return: population of a state divided by the given divisor '''
 
-    return int(state_pop) / find_divisor(house_size, national_pop)
+    return int(state_pop) / divisor
 
-def hamilton_method(house_size, year, national_pop):
+def hamilton_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
     Assign any seats which are yet unapportioned to those states having the largest fractions or remainders.
@@ -62,10 +62,11 @@ def hamilton_method(house_size, year, national_pop):
     quotas = []
     quotas_whole = []
     quotas_decimal = []
+    divisor = find_divisor(house_size, national_pop)
 
     # find quotas for each state
     for state_pop in state_pops:
-        quota = find_quota(state_pop, house_size, national_pop)
+        quota = find_quota(state_pop, divisor)
         quotas.append(quota)
         quotas_whole.append(math.floor(quota))
         quotas_decimal.append(quota - math.floor(quota))
@@ -138,9 +139,60 @@ def jefferson_method(house_size, year):
     Give to each each state its whole number.
     -Fair Representation page 18 '''
 
-    ''' Choose a divisor such that dividing the state populations by produces quotients whose whole numbers add up to the desired house size. '''
+    ''' Choose a divisor such that dividing the state populations by it produces quotients whose whole numbers add up to the desired house size. '''
 
-    return 0
+    national_pop = find_national_pop(year)
+    state_pops = get_state_populations(year)
+    quotients = []
+    quotients_whole = []
+    divisor = find_divisor(house_size, national_pop)
+
+    # find the correct divisor
+    while(True):
+
+        # clear lists
+        quotients = []
+        quotients_whole = []
+
+        # find quotas for each state
+        for state_pop in state_pops:
+            quotient = find_quota(state_pop, divisor)
+            quotients.append(quotient)
+            quotients_whole.append(math.floor(quotient))
+
+        # find how many seats have been assigned so far
+        seats_assigned = 0
+        for quotient in quotients_whole:
+            seats_assigned += quotient
+
+        remaining_seats = house_size - seats_assigned
+
+        # assign seats to any state without one yet first
+        for i in range (0, remaining_seats):
+            index = 0
+            # look for any states with no assigned seats
+            for quotient in quotients_whole:
+                if quotient == 0:
+                    # assign seat to state without any seats yet
+                    quotients_whole[index] += 1
+                # increment index to keep track of which state the decimal belongs to
+                index += 1
+
+        # find how many seats have been assigned so far
+        seats_assigned = 0
+        for quotient in quotients_whole:
+            seats_assigned += quotient
+
+        # print('seats_assigned', seats_assigned)
+        # print('divisor', divisor)
+
+        if(seats_assigned != house_size):
+            divisor -= 1
+        else:
+            # print('Divisor used:', divisor)
+            break
+
+    return quotients_whole
 
 def lowndes_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -157,10 +209,11 @@ def lowndes_method(house_size, year):
     quotas = []
     quotas_whole = []
     quotas_decimal = []
+    divisor = find_divisor(house_size, national_pop)
 
     # find quotas for each state
     for state_pop in state_pops:
-        quota = find_quota(state_pop, house_size, national_pop)
+        quota = find_quota(state_pop, divisor)
         quotas.append(quota)
         quotas_whole.append(math.floor(quota))
         quotas_decimal.append(quota - math.floor(quota))
@@ -188,7 +241,7 @@ def lowndes_method(house_size, year):
                 quotas_whole[index] += 1
                 # remove decimal so state does not get selected again
                 quotas_decimal[index] = 1
-                # increment index to keep track of which state the decimal belongs to
+            # increment index to keep track of which state the decimal belongs to
             index += 1
 
     # find how many seats have been assigned so far
@@ -294,3 +347,10 @@ print('Lowndes Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(lowndes_app[i]))
+
+jefferson_app = jefferson_method(435, 2010)
+
+print('Jefferson Method for 435 seats for 2010')
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(jefferson_app[i]))
