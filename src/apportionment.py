@@ -335,7 +335,48 @@ def webster_method(house_size, year):
     ''' Modification of the Jefferson Method.
     Rounds quotients to the nearest whole number. '''
 
-    return 0
+    national_pop = find_national_pop(year)
+    state_pops = get_state_populations(year)
+    quotients = []
+    quotients_whole = []
+    divisor = find_divisor(house_size, national_pop)
+
+    # find the correct divisor
+    while(True):
+
+        # clear lists
+        quotients = []
+        quotients_whole = []
+
+        # find quotas for each state
+        for state_pop in state_pops:
+            quotient = find_quota(state_pop, divisor)
+            quotients.append(quotient)
+            # rounds quotients to nearest whole number unless that number is 0
+            # change other solutions to dealing with 0 seats asssigned to this method?
+            if round(quotient) != 0:
+                quotients_whole.append(round(quotient))
+            else:
+                quotients_whole.append(1)
+
+        # find how many seats have been assigned so far
+        seats_assigned = 0
+        for quotient in quotients_whole:
+            seats_assigned += quotient
+
+        print('seats_assigned', seats_assigned)
+        print('divisor', divisor)
+
+        # changes the divisor if the desired house size was not reached
+        if(seats_assigned > house_size):
+            divisor += 1
+        elif(seats_assigned < house_size):
+            divisor -= 1
+        else:
+            # print('Divisor used:', divisor)
+            break
+
+    return quotients_whole
 
 def huntington_hill_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -396,3 +437,10 @@ print('Adams Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(adams_app[i]))
+
+webster_app = webster_method(435, 2010)
+
+print('Webster Method for 435 seats for 2010')
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(webster_app[i]))
