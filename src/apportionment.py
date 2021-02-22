@@ -57,6 +57,7 @@ def hamilton_method(house_size, year, national_pop):
     ''' Find quotas for each state assigning seats for the whole numbers of each quota.
     Assign the rest of the seats to states with the largest decimals in their quotas. '''
 
+    national_pop = find_national_pop(year)
     state_pops = get_state_populations(year)
     quotas = []
     quotas_whole = []
@@ -141,7 +142,7 @@ def jefferson_method(house_size, year):
 
     return 0
 
-def lowndes_method(house_size, year, national_pop):
+def lowndes_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
     Adjust each state state's remainder by dividing by the whole number in its quota.
@@ -151,6 +152,7 @@ def lowndes_method(house_size, year, national_pop):
     ''' Modification of the Hamilton Method and how it distributes the final seats.
     Remaining seats go to the seats that would benefit the most from additional representation, typically smaller states. '''
 
+    national_pop = find_national_pop(year)
     state_pops = get_state_populations(year)
     quotas = []
     quotas_whole = []
@@ -279,14 +281,14 @@ for line in states_text:
     STATES.append(stripped_line)
 # print(STATES)
 
-hamilton_app = hamilton_method(435, 2010, find_national_pop(2010))
+hamilton_app = hamilton_method(435, 2010)
 
 print('Hamilton Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(hamilton_app[i]))
 
-lowndes_app = lowndes_method(435, 2010, find_national_pop(2010))
+lowndes_app = lowndes_method(435, 2010)
 
 print('Lowndes Method for 435 seats for 2010')
 
