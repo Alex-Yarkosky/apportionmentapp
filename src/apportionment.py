@@ -186,6 +186,7 @@ def jefferson_method(house_size, year):
         # print('seats_assigned', seats_assigned)
         # print('divisor', divisor)
 
+        # decrease the divisor if the desired house size was not reached
         if(seats_assigned != house_size):
             divisor -= 1
         else:
@@ -289,6 +290,42 @@ def adams_method(house_size, year):
     ''' Inversion of the Jefferson Method.
     Rounds all quotients up instead of down. '''
 
+    national_pop = find_national_pop(year)
+    state_pops = get_state_populations(year)
+    quotients = []
+    quotients_whole = []
+    divisor = find_divisor(house_size, national_pop)
+
+    # find the correct divisor
+    while(True):
+
+        # clear lists
+        quotients = []
+        quotients_whole = []
+
+        # find quotas for each state
+        for state_pop in state_pops:
+            quotient = find_quota(state_pop, divisor)
+            quotients.append(quotient)
+            quotients_whole.append(math.ceil(quotient))
+
+        # find how many seats have been assigned so far
+        seats_assigned = 0
+        for quotient in quotients_whole:
+            seats_assigned += quotient
+
+        # print('seats_assigned', seats_assigned)
+        # print('divisor', divisor)
+
+        # increase the divisor if the desired house size was not reached
+        if(seats_assigned != house_size):
+            divisor += 1
+        else:
+            # print('Divisor used:', divisor)
+            break
+
+    return quotients_whole
+
     return 0
 
 def webster_method(house_size, year):
@@ -354,3 +391,10 @@ print('Jefferson Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(jefferson_app[i]))
+
+adams_app = adams_method(435, 2010)
+
+print('Adams Method for 435 seats for 2010')
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(adams_app[i]))
