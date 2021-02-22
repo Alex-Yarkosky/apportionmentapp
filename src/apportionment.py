@@ -326,8 +326,6 @@ def adams_method(house_size, year):
 
     return quotients_whole
 
-    return 0
-
 def webster_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find a divisor x so that the whole numbers nearest to the quotients of the states sum to the required total.
