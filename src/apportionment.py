@@ -406,15 +406,11 @@ def huntington_hill_method(house_size, year):
             # calculation based on assigning the next seat so 1 is added to current assigned_seats value for each state
             priority_number.append(int(state_pops[i]) / math.sqrt((assigned_seats[i] + 1) * assigned_seats[i]))
             if priority_number[i] > highest:
-                print("highest", highest)
-                print("priority_number", priority_number[i])
-                print("i", i)
                 highest = priority_number[i]
                 highest_index = i
 
         # assign seat to state that had the highest priority number
         assigned_seats[highest_index] += 1
-        print("highest_index", highest_index)
 
         # find how many seats have been assigned so far
         seats_assigned = 0
@@ -436,7 +432,40 @@ def dean_method(house_size, year):
     ''' Proritizes absolute difference over relative difference.
     Same equation as the Huntington Hill Method except without the square root. '''
 
-    return 0
+    state_pops = get_state_populations(year)
+    assigned_seats = []
+
+    # assign each state one seat to start with
+    for i in range (0, 50):
+        assigned_seats.append(1)
+
+    while(True):
+
+        priority_number = []
+        highest = 0
+        highest_index = 0 # check for Alabama issues
+
+        # find the state to assign the next seat to
+        for i in range (0, 50):
+            # calculation based on assigning the next seat so 1 is added to current assigned_seats value for each state
+            priority_number.append(int(state_pops[i]) / ((assigned_seats[i] + 1) * assigned_seats[i]))
+            if priority_number[i] > highest:
+                highest = priority_number[i]
+                highest_index = i
+
+        # assign seat to state that had the highest priority number
+        assigned_seats[highest_index] += 1
+
+        # find how many seats have been assigned so far
+        seats_assigned = 0
+        for seat in assigned_seats:
+            seats_assigned += seat
+
+        # end once the desired number of seats have been assigned
+        if seats_assigned == house_size:
+            break
+
+    return assigned_seats
 
 # Create function to loop through multiple runs for data collection purposes (varying house sizes for 2010 data and varying years for 435 seats)
 
@@ -488,3 +517,10 @@ print('Huntington-Hill Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(huntington_hill_app[i]))
+
+dean_app = dean_method(435, 2010)
+
+print('Dean Method for 435 seats for 2010')
+
+for i in range (0, 50):
+    print(STATES[i] + ': ' + str(dean_app[i]))
