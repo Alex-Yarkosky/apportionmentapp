@@ -404,7 +404,7 @@ def huntington_hill_method(house_size, year):
         # find the state to assign the next seat to
         for i in range (0, 50):
             # calculation based on assigning the next seat so 1 is added to current assigned_seats value for each state
-            priority_number.append(int(state_pops[i]) / math.sqrt(assigned_seats[i] + 1 * (assigned_seats[i])))
+            priority_number.append(int(state_pops[i]) / math.sqrt((assigned_seats[i] + 1) * assigned_seats[i]))
             if priority_number[i] > highest:
                 print("highest", highest)
                 print("priority_number", priority_number[i])
