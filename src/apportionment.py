@@ -9,7 +9,7 @@ def get_state_populations(year):
         file = ('../resources/census_data/{}population.txt').format(year)
         population_text = open(file, 'r')
     except:
-        raise Exception('Please give a census year from 1900 to 2010 as Parameters')
+        raise Exception('Please give a census year from 1900 to 2010 as parameters')
     population = []
     for line in population_text:
         stripped_line = line.strip()
@@ -47,6 +47,12 @@ def find_quota(state_pop, divisor):
     Return: population of a state divided by the given divisor '''
 
     return int(state_pop) / divisor
+
+def average_constiuency(state_pop, seats):
+    ''' Parameters: population of a state, number of seats assigned to that state
+    Return: average constiuency size for the given state '''
+
+    return int(state_pop) / seats
 
 def hamilton_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -432,40 +438,54 @@ def dean_method(house_size, year):
     ''' Proritizes absolute difference over relative difference.
     Same equation as the Huntington Hill Method except without the square root. '''
 
+    # 1970, 435 problem: CA +1, FL -1, CT +1, OK -1
+
+    national_pop = find_national_pop(year)
     state_pops = get_state_populations(year)
-    assigned_seats = []
+    quotients = []
+    quotients_whole = []
+    divisor = find_divisor(house_size, national_pop)
 
-    # assign each state one seat to start with
-    for i in range (0, 50):
-        assigned_seats.append(1)
-
+    # find the correct divisor
     while(True):
 
-        priority_number = []
-        highest = 0
-        highest_index = 0 # check for Alabama issues
+        # clear lists
+        quotients = []
+        quotients_whole = []
 
-        # find the state to assign the next seat to
-        for i in range (0, 50):
-            # calculation based on assigning the next seat so 1 is added to current assigned_seats value for each state
-            priority_number.append(int(state_pops[i]) / ((assigned_seats[i] + 1) * assigned_seats[i]))
-            if priority_number[i] > highest:
-                highest = priority_number[i]
-                highest_index = i
-
-        # assign seat to state that had the highest priority number
-        assigned_seats[highest_index] += 1
+        # find quotas for each state
+        for state_pop in state_pops:
+            quotient = find_quota(state_pop, divisor)
+            quotients.append(quotient)
+            quotient_rounded_down = math.floor(quotient)
+            if quotient_rounded_down == 0:
+                quotient_rounded_down = 1
+            average = average_constiuency(state_pop, quotient_rounded_down)
+            next_average = average_constiuency(state_pop, (quotient_rounded_down + 1))
+            # find average constiuency closest to the divisor
+            if (abs(average - divisor) > abs(next_average - divisor)):
+                quotients_whole.append(quotient_rounded_down + 1)
+            else:
+                quotients_whole.append(quotient_rounded_down)
 
         # find how many seats have been assigned so far
         seats_assigned = 0
-        for seat in assigned_seats:
-            seats_assigned += seat
+        for quotient in quotients_whole:
+            seats_assigned += quotient
 
-        # end once the desired number of seats have been assigned
-        if seats_assigned == house_size:
+        print('seats_assigned', seats_assigned)
+        print('divisor', divisor)
+
+        # changes the divisor if the desired house size was not reached
+        if(seats_assigned > house_size):
+            divisor += 1
+        elif(seats_assigned < house_size):
+            divisor -= 1
+        else:
+            # print('Divisor used:', divisor)
             break
 
-    return assigned_seats
+    return quotients_whole
 
 # Create function to loop through multiple runs for data collection purposes (varying house sizes for 2010 data and varying years for 435 seats)
 
@@ -518,7 +538,7 @@ print('Huntington-Hill Method for 435 seats for 2010')
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(huntington_hill_app[i]))
 
-dean_app = dean_method(435, 2010)
+dean_app = dean_method(435, 1970)
 
 print('Dean Method for 435 seats for 2010')
 
