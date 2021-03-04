@@ -436,9 +436,7 @@ def dean_method(house_size, year):
     -Fair Representation page 30'''
 
     ''' Proritizes absolute difference over relative difference.
-    Same equation as the Huntington Hill Method except without the square root. '''
-
-    # 1970, 435 problem: CA +1, FL -1, CT +1, OK -1
+    Same equation as the Huntington Hill Method except without the square root. '''d
 
     national_pop = find_national_pop(year)
     state_pops = get_state_populations(year)
@@ -538,7 +536,7 @@ print('Huntington-Hill Method for 435 seats for 2010')
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(huntington_hill_app[i]))
 
-dean_app = dean_method(435, 1970)
+dean_app = dean_method(435, 2010)
 
 print('Dean Method for 435 seats for 2010')
 
