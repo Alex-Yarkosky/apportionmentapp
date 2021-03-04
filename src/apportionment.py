@@ -37,6 +37,34 @@ def district_pop_difference(highest, lowest):
 
     return highest - lowest
 
+def find_largest_pop_district(apportionment, year):
+    ''' Parameters: list of apportioned seats, census year used in the apportionment
+    Return: largest average district size from the given apportionment '''
+
+    state_pops = get_state_populations(year)
+    largest = 0
+
+    for i in range(0, 50):
+      district_size = int(state_pops[i]) / apportionment[i]
+      if district_size > largest:
+          largest = district_size
+
+    return largest
+
+def find_smallest_pop_district(apportionment, year):
+    ''' Parameters: list of apportioned seats, census year used in the apportionment
+    Return: smallest average district size from the given apportionment '''
+
+    state_pops = get_state_populations(year)
+    smallest = 999999999
+
+    for i in range(0, 50):
+      district_size = int(state_pops[i]) / apportionment[i]
+      if district_size < smallest:
+          smallest = district_size
+
+    return smallest
+
 def find_divisor(house_size, national_pop):
     ''' Parameters: size of the House, population of the US states
     Return: divisor created from the national population over the house size '''
@@ -56,6 +84,9 @@ def average_constiuency(state_pop, seats):
     return int(state_pop) / seats
 
 def output(house_sizes, years, methods, differences):
+    ''' Parameters: list of houses sizes, list of years, list of apportionment methods, list of district population differences
+    Return: None'''
+
     with open('apportionments.csv', mode='w') as apportionments:
         results_writer = csv.writer(apportionments, delimiter=',')
 
@@ -553,4 +584,18 @@ print('Dean Method for 435 seats for 2010')
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(dean_app[i]))
 
-output([435, 436], [2010, 2010], ['dean', 'dean'], [12300, 12200])
+# output([435, 436], [2010, 2010], ['dean', 'dean'], [12300, 12200])
+
+high = find_largest_pop_district(hamilton_app, 2010)
+low = find_smallest_pop_district(hamilton_app, 2010)
+print(district_pop_difference(high, low))
+
+'''
+h: 463131.5
+l: 1005185.5
+j: 764735.0
+a: 340081.1111111111
+w: 488941.0
+d: 403226.5
+h-h: 463131.5
+'''
