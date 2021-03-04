@@ -471,8 +471,8 @@ def dean_method(house_size, year):
         for quotient in quotients_whole:
             seats_assigned += quotient
 
-        print('seats_assigned', seats_assigned)
-        print('divisor', divisor)
+        # print('seats_assigned', seats_assigned)
+        # print('divisor', divisor)
 
         # changes the divisor if the desired house size was not reached
         if(seats_assigned > house_size):
