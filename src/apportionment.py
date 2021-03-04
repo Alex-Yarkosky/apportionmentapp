@@ -436,7 +436,7 @@ def dean_method(house_size, year):
     -Fair Representation page 30'''
 
     ''' Proritizes absolute difference over relative difference.
-    Same equation as the Huntington Hill Method except without the square root. '''d
+    Same equation as the Huntington Hill Method except without the square root. '''
 
     national_pop = find_national_pop(year)
     state_pops = get_state_populations(year)
