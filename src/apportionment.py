@@ -1,3 +1,4 @@
+import csv
 import math
 
 def get_state_populations(year):
@@ -53,6 +54,15 @@ def average_constiuency(state_pop, seats):
     Return: average constiuency size for the given state '''
 
     return int(state_pop) / seats
+
+def output(house_sizes, years, methods, differences):
+    with open('apportionments.csv', mode='w') as apportionments:
+        results_writer = csv.writer(apportionments, delimiter=',')
+
+        for i in range(0, len(methods)):
+            results_writer.writerow([methods[i], years[i], house_sizes[i], differences[i]])
+
+    return
 
 def hamilton_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
@@ -430,7 +440,7 @@ def huntington_hill_method(house_size, year):
     return assigned_seats
 
 def dean_method(house_size, year):
-    ''' Choose the house to be apportioned.
+    ''' Choose the size of the house to be apportioned.
     Find a divisor x so that the whole numbers which make the average constituencies of the states closest to x sum to the required total.
     Give to each state its whole number.
     -Fair Representation page 30'''
@@ -542,3 +552,5 @@ print('Dean Method for 435 seats for 2010')
 
 for i in range (0, 50):
     print(STATES[i] + ': ' + str(dean_app[i]))
+
+output([435, 436], [2010, 2010], ['dean', 'dean'], [12300, 12200])
