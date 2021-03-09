@@ -97,162 +97,189 @@ def average_constiuencies(apportionment, year):
     return total / 50
 
 def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
-    '''
-    '''
+    ''' Parameters: start of range of house sizes, end of range of house seats, census year
+    Summary: apportions for each method for a given year for every house size within the given endpoints of the range;
+    outputs results from each apportionment in a single CSV file
+    Return: None '''
 
+    # lists that will be outputted
     house_sizes = []
     years = []
     methods = []
     results = []
+
+    # set initial house size
     house_size = starting_seats
 
+    # loop through the range of house sizes
     while(house_size <= ending_seats):
 
+        # apportion using the hamilton method
         hamilton_app = hamilton_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('hamilton')
         results.append(average_constiuencies(hamilton_app, year))
-        str = ('Hamilton for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('lowndes')
         results.append(average_constiuencies(lowndes_app, year))
-        str = ('Lowndes for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        # causes it to run 3 times on second house size, expontientially increases each time
+        # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('jefferson')
         results.append(average_constiuencies(jefferson_app, year))
-        str = ('Jefferson for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        # causes it to run 3 times on second house size, expontientially increases each time
+        # apportion using the adams method
         adams_app = adams_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('adams')
         results.append(average_constiuencies(adams_app, year))
-        str = ('Adams for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Adams for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        # apportion using the webster method
         webster_app = webster_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('webster')
         results.append(average_constiuencies(webster_app, year))
-        str = ('Webster for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Webster for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        # apportion using the dean method
         dean_app = dean_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('dean')
         results.append(average_constiuencies(dean_app, year))
-        str = ('Dean for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Dean for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        # apportion using the huntington-hill method
         huntington_hill_app = huntington_hill_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('huntington-hill')
         results.append(average_constiuencies(huntington_hill_app, year))
-        str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
-        str = ('Apportionments for {} completed').format(house_size)
-        print(str)
+        # str = ('Apportionments for {} completed').format(house_size)
+        # print(str)
+
+        # increment the house size
         house_size += 1
+
+        # exit the loop once outside the range of house sizes
         if house_size > ending_seats:
             break
 
+    # output house size, year, method, and average of average constiuency size for each apportionment done
     output(house_sizes, years, methods, results)
 
     return
 
 def multiple_runs_varible_year(house_size):
-    '''
-    '''
+    ''' Parameters: house size to apportion
+    Summary: apportions for each method for a given house size for every census year available;
+    outputs results from each apportionment in a single CSV file
+    Return: None '''
 
+    # lists that will be outputted
     house_sizes = []
     years = []
     methods = []
     results = []
+
+    # census years available
     years = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
 
-    # while(house_size <= ending_seats):
+    # loop through each year
     for year in years:
 
+        # apportion using the hamilton method
         hamilton_app = hamilton_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('hamilton')
         results.append(average_constiuencies(hamilton_app, year))
-        str = ('Hamilton for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('lowndes')
         results.append(average_constiuencies(lowndes_app, year))
-        str = ('Lowndes for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('jefferson')
         results.append(average_constiuencies(jefferson_app, year))
-        str = ('Jefferson for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the adams method
         adams_app = adams_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('adams')
         results.append(average_constiuencies(adams_app, year))
-        str = ('Adams for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Adams for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the webster method
         webster_app = webster_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('webster')
         results.append(average_constiuencies(webster_app, year))
-        str = ('Webster for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Webster for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the dean method
         dean_app = dean_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('dean')
         results.append(average_constiuencies(dean_app, year))
-        str = ('Dean for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Dean for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # apportion using the huntington-hill method
         huntington_hill_app = huntington_hill_method(house_size, year)
         house_sizes.append(house_size)
         years.append(year)
         methods.append('huntington-hill')
         results.append(average_constiuencies(huntington_hill_app, year))
-        str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
-        print(str)
+        # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
+        # print(str)
 
+        # exit the loop at the end of the available census years
         if year == 2010:
-            str = ('Apportionments for {} completed').format(house_size)
-            print(str)
+            # str = ('Apportionments for {} completed').format(house_size)
+            # print(str)
             break
 
+    # output house size, year, method, and average of average constiuency size for each apportionment done
     output(house_sizes, years, methods, results)
 
     return
@@ -262,9 +289,11 @@ def output(house_sizes, years, methods, results):
     Summary: data formatted into outputted CSV file
     Return: None'''
 
+    # creates and opens CSV file
     with open('apportionments.csv', mode='w') as apportionments:
         results_writer = csv.writer(apportionments, delimiter=',')
 
+        # adds each row to the CSV file
         for i in range(0, len(methods)):
             results_writer.writerow([methods[i], years[i], house_sizes[i], results[i]])
 
@@ -701,8 +730,6 @@ def dean_method(house_size, year):
 
     return quotients_whole
 
-# Create function to loop through multiple runs for data collection purposes (varying house sizes for 2010 data and varying years for 435 seats)
-
 states_text = open('../resources/states.txt', 'r')
 STATES = []
 for line in states_text:
@@ -807,5 +834,7 @@ d: 700654.4723426643
 h-h: 710149.4864537753
 '''
 
-multiple_runs_variable_house_size(410, 460, 2010)
+# multiple_runs_variable_house_size(410, 460, 2010)
 # multiple_runs_varible_year(435)
+
+if __name__ == '__main__':
