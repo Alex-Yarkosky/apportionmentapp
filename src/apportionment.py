@@ -83,15 +83,190 @@ def average_constiuency(state_pop, seats):
 
     return int(state_pop) / seats
 
-def output(house_sizes, years, methods, differences):
+def average_constiuencies(apportionment, year):
+    ''' Parameters: list of apportioned seats, census year used in apportionment
+    Summary: finds the average constiuency size for each state and then finds the average of that total
+    Return: average of the average constiuency size for each state '''
+
+    state_pops = get_state_populations(year)
+    total = 0
+
+    for i in range(0, 50):
+        total += average_constiuency(state_pops[i], apportionment[i])
+
+    return total / 50
+
+def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
+    '''
+    '''
+
+    house_sizes = []
+    years = []
+    methods = []
+    results = []
+    house_size = starting_seats
+
+    while(house_size <= ending_seats):
+
+        hamilton_app = hamilton_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('hamilton')
+        results.append(average_constiuencies(hamilton_app, year))
+        str = ('Hamilton for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        lowndes_app = lowndes_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('lowndes')
+        results.append(average_constiuencies(lowndes_app, year))
+        str = ('Lowndes for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        # causes it to run 3 times on second house size, expontientially increases each time
+        jefferson_app = jefferson_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('jefferson')
+        results.append(average_constiuencies(jefferson_app, year))
+        str = ('Jefferson for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        # causes it to run 3 times on second house size, expontientially increases each time
+        adams_app = adams_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('adams')
+        results.append(average_constiuencies(adams_app, year))
+        str = ('Adams for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        webster_app = webster_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('webster')
+        results.append(average_constiuencies(webster_app, year))
+        str = ('Webster for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        dean_app = dean_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('dean')
+        results.append(average_constiuencies(dean_app, year))
+        str = ('Dean for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        # causes it to run 3 times on second house size, expontientially increases each time, only runs third house size once for 2010
+        huntington_hill_app = huntington_hill_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('huntington-hill')
+        results.append(average_constiuencies(huntington_hill_app, year))
+        str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        str = ('Apportionments for {} completed').format(house_size)
+        print(str)
+        house_size += 1
+        if house_size > ending_seats:
+            break
+
+    output(house_sizes, years, methods, results)
+
+    return
+
+def multiple_runs_varible_year(house_size):
+    '''
+    '''
+
+    house_sizes = []
+    years = []
+    methods = []
+    results = []
+    years = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
+
+    # while(house_size <= ending_seats):
+    for year in years:
+
+        hamilton_app = hamilton_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('hamilton')
+        results.append(average_constiuencies(hamilton_app, year))
+        str = ('Hamilton for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        lowndes_app = lowndes_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('lowndes')
+        results.append(average_constiuencies(lowndes_app, year))
+        str = ('Lowndes for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        jefferson_app = jefferson_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('jefferson')
+        results.append(average_constiuencies(jefferson_app, year))
+        str = ('Jefferson for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        adams_app = adams_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('adams')
+        results.append(average_constiuencies(adams_app, year))
+        str = ('Adams for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        webster_app = webster_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('webster')
+        results.append(average_constiuencies(webster_app, year))
+        str = ('Webster for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        dean_app = dean_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('dean')
+        results.append(average_constiuencies(dean_app, year))
+        str = ('Dean for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        huntington_hill_app = huntington_hill_method(house_size, year)
+        house_sizes.append(house_size)
+        years.append(year)
+        methods.append('huntington-hill')
+        results.append(average_constiuencies(huntington_hill_app, year))
+        str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
+        print(str)
+
+        if year == 2010:
+            str = ('Apportionments for {} completed').format(house_size)
+            print(str)
+            break
+
+    output(house_sizes, years, methods, results)
+
+    return
+
+def output(house_sizes, years, methods, results):
     ''' Parameters: list of houses sizes, list of years, list of apportionment methods, list of district population differences
+    Summary: data formatted into outputted CSV file
     Return: None'''
 
     with open('apportionments.csv', mode='w') as apportionments:
         results_writer = csv.writer(apportionments, delimiter=',')
 
         for i in range(0, len(methods)):
-            results_writer.writerow([methods[i], years[i], house_sizes[i], differences[i]])
+            results_writer.writerow([methods[i], years[i], house_sizes[i], results[i]])
 
     return
 
@@ -535,60 +710,67 @@ for line in states_text:
     STATES.append(stripped_line)
 # print(STATES)
 
-hamilton_app = hamilton_method(435, 2010)
-
-print('Hamilton Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(hamilton_app[i]))
-
-lowndes_app = lowndes_method(435, 2010)
-
-print('Lowndes Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(lowndes_app[i]))
-
-jefferson_app = jefferson_method(435, 2010)
-
-print('Jefferson Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(jefferson_app[i]))
-
-adams_app = adams_method(435, 2010)
-
-print('Adams Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(adams_app[i]))
-
-webster_app = webster_method(435, 2010)
-
-print('Webster Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(webster_app[i]))
-
-huntington_hill_app = huntington_hill_method(435, 2010)
-
-print('Huntington-Hill Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(huntington_hill_app[i]))
-
-dean_app = dean_method(435, 2010)
-
-print('Dean Method for 435 seats for 2010')
-
-for i in range (0, 50):
-    print(STATES[i] + ': ' + str(dean_app[i]))
+# hamilton_app = hamilton_method(435, 2010)
+#
+# print('Hamilton Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(hamilton_app[i]))
+#     # print(hamilton_app[i])
+#
+# lowndes_app = lowndes_method(435, 2010)
+#
+# print('Lowndes Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(lowndes_app[i]))
+#     # print(lowndes_app[i])
+#
+# jefferson_app = jefferson_method(435, 2010)
+#
+# print('Jefferson Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(jefferson_app[i]))
+#     # print(jefferson_app[i])
+#
+# adams_app = adams_method(435, 2010)
+#
+# print('Adams Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(adams_app[i]))
+#     # print(adams_app[i])
+#
+# webster_app = webster_method(435, 2010)
+#
+# print('Webster Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(webster_app[i]))
+#     # print(webster_app[i])
+#
+# huntington_hill_app = huntington_hill_method(435, 2010)
+#
+# print('Huntington-Hill Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(huntington_hill_app[i]))
+#     # print(huntington_hill_app[i])
+#
+# dean_app = dean_method(435, 2010)
+#
+# print('Dean Method for 435 seats for 2010')
+#
+# for i in range (0, 50):
+#     print(STATES[i] + ': ' + str(dean_app[i]))
+#     # print(dean_app[i])
 
 # output([435, 436], [2010, 2010], ['dean', 'dean'], [12300, 12200])
 
-high = find_largest_pop_district(hamilton_app, 2010)
-low = find_smallest_pop_district(hamilton_app, 2010)
-print(district_pop_difference(high, low))
+# high = find_largest_pop_district(hamilton_app, 2010)
+# low = find_smallest_pop_district(hamilton_app, 2010)
+# print(district_pop_difference(high, low))
 
 '''
 h: 463131.5
@@ -599,3 +781,31 @@ w: 488941.0
 d: 403226.5
 h-h: 463131.5
 '''
+
+# a = average_constiuencies(hamilton_app, 2010)
+# print(a)
+# b = average_constiuencies(lowndes_app, 2010)
+# print(b)
+# c = average_constiuencies(jefferson_app, 2010)
+# print(c)
+# d = average_constiuencies(adams_app, 2010)
+# print(d)
+# e = average_constiuencies(webster_app, 2010)
+# print(e)
+# f = average_constiuencies(dean_app, 2010)
+# print(f)
+# g = average_constiuencies(huntington_hill_app, 2010)
+# print(g)
+
+'''
+h: 710149.4864537753
+l: 742490.0904472923
+j: 759804.0363185572
+a: 671303.8335486325
+w: 719627.30117905
+d: 700654.4723426643
+h-h: 710149.4864537753
+'''
+
+multiple_runs_variable_house_size(410, 460, 2010)
+# multiple_runs_varible_year(435)
