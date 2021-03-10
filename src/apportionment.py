@@ -732,9 +732,9 @@ def dean_method(house_size, year):
 
         # changes the divisor if the desired house size was not reached
         if(seats_assigned > house_size):
-            divisor += 1
+            divisor += .5
         elif(seats_assigned < house_size):
-            divisor -= 1
+            divisor -= .5
         else:
             # print('Divisor used:', divisor)
             break
