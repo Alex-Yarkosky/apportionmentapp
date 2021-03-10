@@ -914,9 +914,113 @@ if __name__ == '__main__':
             else:
                 while(method != '1' or '2' or '3' or '4' or '5' or '6' or '7'):
                     method = input('Invalid input received, please re-enter your input. Would you like to apportion using the Hamilton Method (1), Jefferson Method (2), Lowndes Method (3), Adams Method (4), Webster Method (5), Dean Method (6), or Huntington-Hill Method (7)? ')
-                    # add above if statements here once done
+                    if method == '1':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = hamilton_method(int(house_size), year)
+                        output_message = ('Hamilton Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '2':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = jefferson_method(int(house_size), year)
+                        output_message = ('Jefferson Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '3':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = lowndes_method(int(house_size), year)
+                        output_message = ('Lowndes Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '4':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = adams_method(int(house_size), year)
+                        output_message = ('Adams Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '5':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = webster_method(int(house_size), year)
+                        output_message = ('Webster Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '6':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = dean_method(int(house_size), year)
+                        output_message = ('Dean Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
+                    elif method == '7':
+                        year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                        house_size = input('What house size would you like to apportion for? ')
+                        apportionment = huntington_hill_method(int(house_size), year)
+                        output_message = ('Huntington-Hill Method for {} seats for {}').format(house_size, year)
+                        print(output_message)
+                        print_apportionment(apportionment, STATES)
+                        break
         elif type == '2':
-             print()
+            variable = input('Would you like to apportion over a range of house sizes (1) or over multiple years (2)? ')
+            if variable == '1':
+                starting_seats = input('What house size would you like to start the range at? ')
+                ending_seats = input('What house size would you like to end the range at? ')
+                year = input('What census year between 1900-2010 would you like to apportion for? ')
+                try:
+                    # needs revising when first size is larger than second
+                    multiple_runs_variable_house_size(int(starting_seats), int(ending_seats), year)
+                    output_message = ('Apportionments from {} to {} seats for {} outputted as a CSV file.').format(starting_seats, ending_seats, year)
+                    print(output_message)
+                except:
+                    raise Exception('Unable to do mulitple apportionments for given inputs.')
+            elif variable == '2':
+                house_size = input('What house size would you like to apportion for? ')
+                try:
+                    multiple_runs_varible_year(int(house_size))
+                    output_message = ('Apportionments for {} seats from 1900-2010 outputted as a CSV file.').format(year)
+                    print(output_message)
+                except:
+                    raise Exception('Unable to do multiple apportionments for given input.')
+            else:
+                while(variable != '1' or '2'):
+                    variable = input('Invalid input received, please re-enter your input. Would you like to apportion over a range of house sizes (1) or over multiple years (2)? ')
+                    if variable == '1':
+                        starting_seats = input('What house size would you like to start the range at? ')
+                        ending_seats = input('What house size would you like to end the range at? ')
+                        year = input('What census year between 1900-2010 would you like to apportion for? ')
+                        try:
+                            # needs revising when first size is larger than second
+                            multiple_runs_variable_house_size(int(starting_seats), int(ending_seats), year)
+                            output_message = ('Apportionments from {} to {} seats for {} outputted as a CSV file.').format(starting_seats, ending_seats, year)
+                            print(output_message)
+                            # exit while loop
+                            break
+                        except:
+                            raise Exception('Unable to do mulitple apportionments for given inputs.')
+                            # exit while loop
+                            break
+                    elif variable == '2':
+                        house_size = input('What house size would you like to apportion for? ')
+                        try:
+                            multiple_runs_varible_year(int(house_size))
+                            output_message = ('Apportionments for {} seats from 1900-2010 outputted as a CSV file.').format(house_size)
+                            print(output_message)
+                            # exit while loop
+                            break
+                        except:
+                            raise Exception('Unable to do multiple apportionments for given input.')
+                            # exit while loop
+                            break
         else:
             while(type != '1' or '2'):
                 type = input('Invalid input received, please re-enter your input. Would you like do apportionment one at a time (1) or would you like to do apportionment en masse (2)? ')
