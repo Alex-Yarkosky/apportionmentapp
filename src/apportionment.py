@@ -299,6 +299,17 @@ def output(house_sizes, years, methods, results):
 
     return
 
+def print_apportionment(apportionment, STATES):
+    ''' Parameters: list of apportioned seats, list of state names
+    Summary: print state name and number of seats apportioned to it
+    Return: None '''
+
+    for i in range (0, 50):
+        print(STATES[i] + ': ' + str(apportionment[i]))
+
+    return
+
+
 def hamilton_method(house_size, year):
     ''' Choose the size of the house to be apportioned.
     Find the quotas and give to each state the whole number contained in its quota.
@@ -730,13 +741,6 @@ def dean_method(house_size, year):
 
     return quotients_whole
 
-states_text = open('../resources/states.txt', 'r')
-STATES = []
-for line in states_text:
-    stripped_line = line.strip()
-    STATES.append(stripped_line)
-# print(STATES)
-
 # hamilton_app = hamilton_method(435, 2010)
 #
 # print('Hamilton Method for 435 seats for 2010')
@@ -838,3 +842,82 @@ h-h: 710149.4864537753
 # multiple_runs_varible_year(435)
 
 if __name__ == '__main__':
+
+    # print welcome message at start up of app
+    print('Welcome to the Apportionment App!')
+    # explain how to input choices
+    print('To interact with the application, input the number that comes after an option to select it.')
+    # let the user know how to exit the app
+    print('Anytime you would like to exit the application, enter a 0 when choosing between options.')
+
+    # create list of each state's name
+    states_text = open('../resources/states.txt', 'r')
+    STATES = []
+    for line in states_text:
+        stripped_line = line.strip()
+        STATES.append(stripped_line)
+    # print(STATES)
+
+    while(True):
+        type = input('Would you like do apportionment one at a time (1) or would you like to do apportionment en masse (2)? ')
+        if type == '1':
+            method = input('Would you like to apportion using the Hamilton Method (1), Jefferson Method (2), Lowndes Method (3), Adams Method (4), Webster Method (5), Dean Method (6), or Huntington-Hill Method (7)? ')
+            if method == '1':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = hamilton_method(int(house_size), year)
+                output_message = ('Hamilton Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '2':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = jefferson_method(int(house_size), year)
+                output_message = ('Jefferson Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '3':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = lowndes_method(int(house_size), year)
+                output_message = ('Lowndes Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '4':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = adams_method(int(house_size), year)
+                output_message = ('Adams Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '5':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = webster_method(int(house_size), year)
+                output_message = ('Webster Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '6':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = dean_method(int(house_size), year)
+                output_message = ('Dean Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            elif method == '7':
+                year = input('Which census year between 1900-2010 would you like to apportion for? ')
+                house_size = input('What house size would you like to apportion for? ')
+                apportionment = huntington_hill_method(int(house_size), year)
+                output_message = ('Huntington-Hill Method for {} seats for {}').format(house_size, year)
+                print(output_message)
+                print_apportionment(apportionment, STATES)
+            else:
+                while(method != '1' or '2' or '3' or '4' or '5' or '6' or '7'):
+                    method = input('Invalid input received, please re-enter your input. Would you like to apportion using the Hamilton Method (1), Jefferson Method (2), Lowndes Method (3), Adams Method (4), Webster Method (5), Dean Method (6), or Huntington-Hill Method (7)? ')
+                    # add above if statements here once done
+        elif type == '2':
+             print()
+        else:
+            while(type != '1' or '2'):
+                type = input('Invalid input received, please re-enter your input. Would you like do apportionment one at a time (1) or would you like to do apportionment en masse (2)? ')
+                # add above if statements here once done
