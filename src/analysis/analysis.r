@@ -36,25 +36,25 @@ huntingtonHillCYA <- censusYearApportionments[ which(censusYearApportionments$me
 # Plot house size lines together
 
 png(file = "tempHS.png")
-ggplot() + xlab("House Size") + ylab("District Population") + 
-  geom_line(data = hamiltonHSA, aes(x = house_size, y = ave_constituency), color = "blue") + 
-  geom_line(data = jeffersonHSA, aes(x = house_size, y = ave_constituency, color = "red")) + 
-  geom_line(data = lowndesHSA, aes(x = house_size, y = ave_constituency, color = "green")) + 
-  geom_line(data = adamsHSA, aes(x = house_size, y = ave_constituency, color = "orange")) + 
-  geom_line(data = websterHSA, aes(x = house_size, y = ave_constituency, color = "yellow")) + 
-  geom_line(data = deanHSA, aes(x = house_size, y = ave_constituency, color = "purple")) + 
-  geom_line(data = huntingtonHillHSA, aes(x = house_size, y = ave_constituency, color = "black"))
+ggplot() + xlab("House Size") + ylab("District Population") + labs(color = "Method") +
+  geom_line(data = hamiltonHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = jeffersonHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = lowndesHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = adamsHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = websterHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = deanHSA, aes(x = house_size, y = ave_constituency, color = method)) + 
+  geom_line(data = huntingtonHillHSA, aes(x = house_size, y = ave_constituency, color = method))
 dev.off()
 
 # Plot census year lines together
 
 png(file = "tempCY.png")
-ggplot() + xlab("Year") + ylab("District Population") + 
-  geom_line(data = hamiltonCYA, aes(x = year, y = ave_constituency), color = "blue") + 
-  geom_line(data = jeffersonCYA, aes(x = year, y = ave_constituency, color = "red")) + 
-  geom_line(data = lowndesCYA, aes(x = year, y = ave_constituency, color = "green")) + 
-  geom_line(data = adamsCYA, aes(x = year, y = ave_constituency, color = "orange")) + 
-  geom_line(data = websterCYA, aes(x = year, y = ave_constituency, color = "yellow")) + 
-  geom_line(data = deanCYA, aes(x = year, y = ave_constituency, color = "purple")) + 
-  geom_line(data = huntingtonHillCYA, aes(x = year, y = ave_constituency, color = "black"))
+ggplot() + xlab("Year") + ylab("District Population") + labs(color = "Method") +
+  geom_line(data = hamiltonCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = jeffersonCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = lowndesCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = adamsCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = websterCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = deanCYA, aes(x = year, y = ave_constituency, color = method)) + 
+  geom_line(data = huntingtonHillCYA, aes(x = year, y = ave_constituency, color = method))
 dev.off()
