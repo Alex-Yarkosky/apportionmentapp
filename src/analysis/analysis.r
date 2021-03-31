@@ -36,7 +36,7 @@ huntingtonHillCYA <- censusYearApportionments[ which(censusYearApportionments$me
 # Plot house size lines together
 
 png(file = "tempHS.png")
-ggplot() +
+ggplot() + xlab("House Size") + ylab("District Population") + 
   geom_line(data = hamiltonHSA, aes(x = house_size, y = ave_constituency), color = "blue") + 
   geom_line(data = jeffersonHSA, aes(x = house_size, y = ave_constituency, color = "red")) + 
   geom_line(data = lowndesHSA, aes(x = house_size, y = ave_constituency, color = "green")) + 
@@ -49,7 +49,7 @@ dev.off()
 # Plot census year lines together
 
 png(file = "tempCY.png")
-ggplot() +
+ggplot() + xlab("Year") + ylab("District Population") + 
   geom_line(data = hamiltonCYA, aes(x = year, y = ave_constituency), color = "blue") + 
   geom_line(data = jeffersonCYA, aes(x = year, y = ave_constituency, color = "red")) + 
   geom_line(data = lowndesCYA, aes(x = year, y = ave_constituency, color = "green")) + 
