@@ -111,6 +111,10 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
     # set initial house size
     house_size = starting_seats
 
+    # clear output file
+    file = open("apportionments.csv","r+")
+    file.truncate(0)
+
     # loop through the range of house sizes
     while(house_size <= ending_seats):
 
@@ -188,7 +192,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
             break
 
     # output house size, year, method, and average of average constiuency size for each apportionment done
-    output(house_sizes, years, methods, results)
+    outputs(house_sizes, years, methods, results)
 
     return
 
@@ -198,79 +202,73 @@ def multiple_runs_varible_year(house_size):
     outputs results from each apportionment in a single CSV file
     Return: None '''
 
-    # lists that will be outputted
-    house_sizes = []
-    years = []
-    methods = []
-    results = []
-
     # census years available
     years = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010]
+
+    # clear output file
+    file = open("apportionments.csv","r+")
+    file.truncate(0)
 
     # loop through each year
     for year in years:
 
         # apportion using the hamilton method
         hamilton_app = hamilton_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('hamilton')
-        results.append(average_constiuencies(hamilton_app, year))
+        result = average_constiuencies(hamilton_app, year)
         # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Hamilton', result)
 
         # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('lowndes')
-        results.append(average_constiuencies(lowndes_app, year))
+        result = average_constiuencies(lowndes_app, year)
         # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Lowndes', result)
 
         # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('jefferson')
-        results.append(average_constiuencies(jefferson_app, year))
+        result = average_constiuencies(jefferson_app, year)
         # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Jefferson', result)
 
         # apportion using the adams method
         adams_app = adams_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('adams')
-        results.append(average_constiuencies(adams_app, year))
+        result = average_constiuencies(adams_app, year)
         # str = ('Adams for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Adams', result)
 
         # apportion using the webster method
         webster_app = webster_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('webster')
-        results.append(average_constiuencies(webster_app, year))
+        result = average_constiuencies(webster_app, year)
         # str = ('Webster for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Webster', result)
 
         # apportion using the dean method
         dean_app = dean_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('dean')
-        results.append(average_constiuencies(dean_app, year))
+        result = average_constiuencies(dean_app, year)
         # str = ('Dean for {} with {} seats completed').format(year, house_size)
         # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Dean', result)
 
         # apportion using the huntington-hill method
-        huntington_hill_app = huntington_hill_method(house_size, year)
-        house_sizes.append(house_size)
-        years.append(year)
-        methods.append('huntington-hill')
-        results.append(average_constiuencies(huntington_hill_app, year))
+        huntington_hill_app = hamilton_method(house_size, year)
+        result = average_constiuencies(huntington_hill_app, year)
         # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
+        # print(str)
+        # output house size, year, method, and average of average constiuency size
+        output(house_size, year, 'Huntington-Hill', result)
+
+        # str = ('Apportionments for {} completed').format(year)
         # print(str)
 
         # exit the loop at the end of the available census years
@@ -279,18 +277,29 @@ def multiple_runs_varible_year(house_size):
             # print(str)
             break
 
-    # output house size, year, method, and average of average constiuency size for each apportionment done
-    output(house_sizes, years, methods, results)
-
     return
 
 def output(house_sizes, years, methods, results):
+    ''' Parameters: houses size, year, apportionment method, district population difference
+    Summary: data formatted into outputted CSV file
+    Return: None'''
+
+    # creates and opens CSV file
+    with open('apportionments.csv', mode='a') as apportionments:
+        results_writer = csv.writer(apportionments, delimiter=',')
+
+        # adds a row to the CSV file
+        results_writer.writerow([methods, years, house_sizes, results])
+
+    return
+
+def outputs(house_sizes, years, methods, results):
     ''' Parameters: list of houses sizes, list of years, list of apportionment methods, list of district population differences
     Summary: data formatted into outputted CSV file
     Return: None'''
 
     # creates and opens CSV file
-    with open('apportionments.csv', mode='w') as apportionments:
+    with open('apportionments.csv', mode='a') as apportionments:
         results_writer = csv.writer(apportionments, delimiter=',')
 
         # adds each row to the CSV file
@@ -987,7 +996,7 @@ if __name__ == '__main__':
                 house_size = input('What house size would you like to apportion for? ')
                 try:
                     multiple_runs_varible_year(int(house_size))
-                    output_message = ('Apportionments for {} seats from 1900-2010 outputted as a CSV file.').format(year)
+                    output_message = ('Apportionments for {} seats from 1900-2010 outputted as a CSV file.').format(house_size)
                     print(output_message)
                 except:
                     raise Exception('Unable to do multiple apportionments for given input.')
