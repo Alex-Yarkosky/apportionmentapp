@@ -77,13 +77,13 @@ def find_quota(state_pop, divisor):
 
     return int(state_pop) / divisor
 
-def average_constiuency(state_pop, seats):
+def average_constituency(state_pop, seats):
     ''' Parameters: population of a state, number of seats assigned to that state
     Return: average constiuency size for the given state '''
 
     return int(state_pop) / seats
 
-def average_constiuencies(apportionment, year):
+def average_constituencies(apportionment, year):
     ''' Parameters: list of apportioned seats, census year used in apportionment
     Summary: finds the average constiuency size for each state and then finds the average of that total
     Return: average of the average constiuency size for each state '''
@@ -92,7 +92,7 @@ def average_constiuencies(apportionment, year):
     total = 0
 
     for i in range(0, 50):
-        total += average_constiuency(state_pops[i], apportionment[i])
+        total += average_constituency(state_pops[i], apportionment[i])
 
     return total / 50
 
@@ -123,7 +123,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('hamilton')
-        results.append(average_constiuencies(hamilton_app, year))
+        results.append(average_constituencies(hamilton_app, year))
         # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -132,7 +132,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('lowndes')
-        results.append(average_constiuencies(lowndes_app, year))
+        results.append(average_constituencies(lowndes_app, year))
         # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -141,7 +141,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('jefferson')
-        results.append(average_constiuencies(jefferson_app, year))
+        results.append(average_constituencies(jefferson_app, year))
         # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -150,7 +150,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('adams')
-        results.append(average_constiuencies(adams_app, year))
+        results.append(average_constituencies(adams_app, year))
         # str = ('Adams for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -159,7 +159,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('webster')
-        results.append(average_constiuencies(webster_app, year))
+        results.append(average_constituencies(webster_app, year))
         # str = ('Webster for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -168,7 +168,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('dean')
-        results.append(average_constiuencies(dean_app, year))
+        results.append(average_constituencies(dean_app, year))
         # str = ('Dean for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -177,7 +177,7 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         house_sizes.append(house_size)
         years.append(year)
         methods.append('huntington-hill')
-        results.append(average_constiuencies(huntington_hill_app, year))
+        results.append(average_constituencies(huntington_hill_app, year))
         # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
         # print(str)
 
@@ -214,7 +214,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the hamilton method
         hamilton_app = hamilton_method(house_size, year)
-        result = average_constiuencies(hamilton_app, year)
+        result = average_constituencies(hamilton_app, year)
         # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -222,7 +222,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
-        result = average_constiuencies(lowndes_app, year)
+        result = average_constituencies(lowndes_app, year)
         # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -230,7 +230,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
-        result = average_constiuencies(jefferson_app, year)
+        result = average_constituencies(jefferson_app, year)
         # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -238,7 +238,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the adams method
         adams_app = adams_method(house_size, year)
-        result = average_constiuencies(adams_app, year)
+        result = average_constituencies(adams_app, year)
         # str = ('Adams for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -246,7 +246,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the webster method
         webster_app = webster_method(house_size, year)
-        result = average_constiuencies(webster_app, year)
+        result = average_constituencies(webster_app, year)
         # str = ('Webster for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -254,7 +254,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the dean method
         dean_app = dean_method(house_size, year)
-        result = average_constiuencies(dean_app, year)
+        result = average_constituencies(dean_app, year)
         # str = ('Dean for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -262,7 +262,7 @@ def multiple_runs_varible_year(house_size):
 
         # apportion using the huntington-hill method
         huntington_hill_app = hamilton_method(house_size, year)
-        result = average_constiuencies(huntington_hill_app, year)
+        result = average_constituencies(huntington_hill_app, year)
         # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
         # print(str)
         # output house size, year, method, and average of average constiuency size
@@ -723,8 +723,8 @@ def dean_method(house_size, year):
             quotient_rounded_down = math.floor(quotient)
             if quotient_rounded_down == 0:
                 quotient_rounded_down = 1
-            average = average_constiuency(state_pop, quotient_rounded_down)
-            next_average = average_constiuency(state_pop, (quotient_rounded_down + 1))
+            average = average_constituency(state_pop, quotient_rounded_down)
+            next_average = average_constituency(state_pop, (quotient_rounded_down + 1))
             # find average constiuency closest to the divisor
             if (abs(average - divisor) > abs(next_average - divisor)):
                 quotients_whole.append(quotient_rounded_down + 1)
@@ -822,19 +822,19 @@ d: 403226.5
 h-h: 463131.5
 '''
 
-# a = average_constiuencies(hamilton_app, 2010)
+# a = average_constituencies(hamilton_app, 2010)
 # print(a)
-# b = average_constiuencies(lowndes_app, 2010)
+# b = average_constituencies(lowndes_app, 2010)
 # print(b)
-# c = average_constiuencies(jefferson_app, 2010)
+# c = average_constituencies(jefferson_app, 2010)
 # print(c)
-# d = average_constiuencies(adams_app, 2010)
+# d = average_constituencies(adams_app, 2010)
 # print(d)
-# e = average_constiuencies(webster_app, 2010)
+# e = average_constituencies(webster_app, 2010)
 # print(e)
-# f = average_constiuencies(dean_app, 2010)
+# f = average_constituencies(dean_app, 2010)
 # print(f)
-# g = average_constiuencies(huntington_hill_app, 2010)
+# g = average_constituencies(huntington_hill_app, 2010)
 # print(g)
 
 '''
