@@ -31,12 +31,14 @@ def find_national_pop(year):
     # print(natl_pop)
     return natl_pop
 
+# unused
 def district_pop_difference(highest, lowest):
     ''' Parameters: most populous district (state average), least populous district (state average)
     Return: difference of most populous district minus least poplous district '''
 
     return highest - lowest
 
+# unused
 def find_largest_pop_district(apportionment, year):
     ''' Parameters: list of apportioned seats, census year used in the apportionment
     Return: largest average district size from the given apportionment '''
@@ -51,6 +53,7 @@ def find_largest_pop_district(apportionment, year):
 
     return largest
 
+# unused
 def find_smallest_pop_district(apportionment, year):
     ''' Parameters: list of apportioned seats, census year used in the apportionment
     Return: smallest average district size from the given apportionment '''
