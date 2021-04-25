@@ -28,7 +28,6 @@ def find_national_pop(year):
     # Loop through every state for the given year and add their pop to natl_pop
     for state in states:
         natl_pop += int(state)
-    # print(natl_pop)
     return natl_pop
 
 # unused
@@ -127,8 +126,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('hamilton')
         results.append(average_constituencies(hamilton_app, year))
-        # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
@@ -136,8 +133,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('lowndes')
         results.append(average_constituencies(lowndes_app, year))
-        # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
@@ -145,8 +140,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('jefferson')
         results.append(average_constituencies(jefferson_app, year))
-        # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the adams method
         adams_app = adams_method(house_size, year)
@@ -154,8 +147,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('adams')
         results.append(average_constituencies(adams_app, year))
-        # str = ('Adams for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the webster method
         webster_app = webster_method(house_size, year)
@@ -163,8 +154,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('webster')
         results.append(average_constituencies(webster_app, year))
-        # str = ('Webster for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the dean method
         dean_app = dean_method(house_size, year)
@@ -172,8 +161,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('dean')
         results.append(average_constituencies(dean_app, year))
-        # str = ('Dean for {} with {} seats completed').format(year, house_size)
-        # print(str)
 
         # apportion using the huntington-hill method
         huntington_hill_app = huntington_hill_method(house_size, year)
@@ -181,11 +168,6 @@ def multiple_runs_variable_house_size(starting_seats, ending_seats, year):
         years.append(year)
         methods.append('huntington-hill')
         results.append(average_constituencies(huntington_hill_app, year))
-        # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
-        # print(str)
-
-        # str = ('Apportionments for {} completed').format(house_size)
-        # print(str)
 
         # increment the house size
         house_size += 1
@@ -218,66 +200,47 @@ def multiple_runs_varible_year(house_size):
         # apportion using the hamilton method
         hamilton_app = hamilton_method(house_size, year)
         result = average_constituencies(hamilton_app, year)
-        # str = ('Hamilton for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Hamilton', result)
 
         # apportion using the lowndes method
         lowndes_app = lowndes_method(house_size, year)
         result = average_constituencies(lowndes_app, year)
-        # str = ('Lowndes for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Lowndes', result)
 
         # apportion using the jefferson method
         jefferson_app = jefferson_method(house_size, year)
         result = average_constituencies(jefferson_app, year)
-        # str = ('Jefferson for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Jefferson', result)
 
         # apportion using the adams method
         adams_app = adams_method(house_size, year)
         result = average_constituencies(adams_app, year)
-        # str = ('Adams for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Adams', result)
 
         # apportion using the webster method
         webster_app = webster_method(house_size, year)
         result = average_constituencies(webster_app, year)
-        # str = ('Webster for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Webster', result)
 
         # apportion using the dean method
         dean_app = dean_method(house_size, year)
         result = average_constituencies(dean_app, year)
-        # str = ('Dean for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Dean', result)
 
         # apportion using the huntington-hill method
         huntington_hill_app = hamilton_method(house_size, year)
         result = average_constituencies(huntington_hill_app, year)
-        # str = ('Huntington-Hill for {} with {} seats completed').format(year, house_size)
-        # print(str)
         # output house size, year, method, and average of average constiuency size
         output(house_size, year, 'Huntington-Hill', result)
 
-        # str = ('Apportionments for {} completed').format(year)
-        # print(str)
-
         # exit the loop at the end of the available census years
         if year == 2010:
-            # str = ('Apportionments for {} completed').format(house_size)
-            # print(str)
             break
 
     return
@@ -345,16 +308,10 @@ def hamilton_method(house_size, year):
         quotas_whole.append(math.floor(quota))
         quotas_decimal.append(quota - math.floor(quota))
 
-    # print(quotas)
-    # print(quotas_whole)
-    # print(quotas_decimal)
-
     # find how many seats have been assigned so far
     seats_assigned = 0
     for quota in quotas_whole:
         seats_assigned += quota
-
-    # print(seats_assigned)
 
     remaining_seats = house_size - seats_assigned
 
@@ -400,10 +357,6 @@ def hamilton_method(house_size, year):
     seats_assigned = 0
     for quota in quotas_whole:
         seats_assigned += quota
-
-    # print(quotas_whole)
-    # print(quotas_decimal)
-    # print(seats_assigned)
 
     return quotas_whole
 
@@ -457,9 +410,6 @@ def jefferson_method(house_size, year):
         for quotient in quotients_whole:
             seats_assigned += quotient
 
-        # print('seats_assigned', seats_assigned)
-        # print('divisor', divisor)
-
         # decrease the divisor if the desired house size was not reached
         if(seats_assigned != house_size):
             divisor -= 1
@@ -493,16 +443,11 @@ def lowndes_method(house_size, year):
         quotas_whole.append(math.floor(quota))
         quotas_decimal.append(quota - math.floor(quota))
 
-    # print(quotas)
-    # print(quotas_whole)
-    # print(quotas_decimal)
-
     # find how many seats have been assigned so far
     seats_assigned = 0
     for quota in quotas_whole:
         seats_assigned += quota
 
-    # print(seats_assigned)
 
     remaining_seats = house_size - seats_assigned
 
@@ -549,10 +494,6 @@ def lowndes_method(house_size, year):
     for quota in quotas_whole:
         seats_assigned += quota
 
-    # print(quotas_whole)
-    # print(quotas_decimal)
-    # print(seats_assigned)
-
     return quotas_whole
 
 def adams_method(house_size, year):
@@ -587,9 +528,6 @@ def adams_method(house_size, year):
         seats_assigned = 0
         for quotient in quotients_whole:
             seats_assigned += quotient
-
-        # print('seats_assigned', seats_assigned)
-        # print('divisor', divisor)
 
         # increase the divisor if the desired house size was not reached
         if(seats_assigned != house_size):
@@ -637,9 +575,6 @@ def webster_method(house_size, year):
         seats_assigned = 0
         for quotient in quotients_whole:
             seats_assigned += quotient
-
-        # print('seats_assigned', seats_assigned)
-        # print('divisor', divisor)
 
         # changes the divisor if the desired house size was not reached
         if(seats_assigned > house_size):
@@ -739,9 +674,6 @@ def dean_method(house_size, year):
         for quotient in quotients_whole:
             seats_assigned += quotient
 
-        # print('seats_assigned', seats_assigned)
-        # print('divisor', divisor)
-
         # changes the divisor if the desired house size was not reached
         if(seats_assigned > house_size):
             divisor += .5
@@ -768,7 +700,6 @@ if __name__ == '__main__':
     for line in states_text:
         stripped_line = line.strip()
         STATES.append(stripped_line)
-    # print(STATES)
 
     while(True):
         type = input('Would you like do apportionment one at a time (1) or would you like to do apportionment en masse (2)? ')
