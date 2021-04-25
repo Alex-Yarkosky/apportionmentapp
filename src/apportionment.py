@@ -305,28 +305,14 @@ def hamilton_method(house_size, year):
     for state_pop in state_pops:
         quota = find_quota(state_pop, divisor)
         quotas.append(quota)
-        quotas_whole.append(math.floor(quota))
-        quotas_decimal.append(quota - math.floor(quota))
-
-    # find how many seats have been assigned so far
-    seats_assigned = 0
-    for quota in quotas_whole:
-        seats_assigned += quota
-
-    remaining_seats = house_size - seats_assigned
-
-    # assign seats to any state without one yet first
-    for i in range (0, remaining_seats):
-        index = 0
-        # look for any states with no assigned seats
-        for quota in quotas_whole:
-            if quota == 0:
-                # assign seat to state without any seats yet
-                quotas_whole[index] += 1
-                # remove decimal so state does not get selected again
-                quotas_decimal[index] = 0
-                # increment index to keep track of which state the decimal belongs to
-            index += 1
+        # separates quotas into whole numbers and decimals
+        if math.floor(quota) != 0:
+            quotas_whole.append(math.floor(quota))
+            quotas_decimal.append(quota - math.floor(quota))
+        # ensures that each state gets at least one seat
+        else:
+            quotas_whole.append(1)
+            quotas_decimal.append(0)
 
     # find how many seats have been assigned so far
     seats_assigned = 0
@@ -440,29 +426,14 @@ def lowndes_method(house_size, year):
     for state_pop in state_pops:
         quota = find_quota(state_pop, divisor)
         quotas.append(quota)
-        quotas_whole.append(math.floor(quota))
-        quotas_decimal.append(quota - math.floor(quota))
-
-    # find how many seats have been assigned so far
-    seats_assigned = 0
-    for quota in quotas_whole:
-        seats_assigned += quota
-
-
-    remaining_seats = house_size - seats_assigned
-
-    # assign seats to any state without one yet first
-    for i in range (0, remaining_seats):
-        index = 0
-        # look for any states with no assigned seats
-        for quota in quotas_whole:
-            if quota == 0:
-                # assign seat to state without any seats yet
-                quotas_whole[index] += 1
-                # remove decimal so state does not get selected again
-                quotas_decimal[index] = 1
-            # increment index to keep track of which state the decimal belongs to
-            index += 1
+        # separates quotas into whole numbers and decimals
+        if math.floor(quota) != 0:
+            quotas_whole.append(math.floor(quota))
+            quotas_decimal.append(quota - math.floor(quota))
+        # ensures that each state gets at least one seat
+        else:
+            quotas_whole.append(1)
+            quotas_decimal.append(1)
 
     # find how many seats have been assigned so far
     seats_assigned = 0
@@ -565,7 +536,6 @@ def webster_method(house_size, year):
             quotient = find_quota(state_pop, divisor)
             quotients.append(quotient)
             # rounds quotients to nearest whole number unless that number is 0
-            # change other solutions to dealing with 0 seats asssigned to this method?
             if round(quotient) != 0:
                 quotients_whole.append(round(quotient))
             else:
