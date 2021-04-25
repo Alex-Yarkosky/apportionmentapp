@@ -339,7 +339,7 @@ def hamilton_method(house_size, year):
     # assign remaining seats one by one to states whose quotas have the largest decimals
     for i in range (0, remaining_seats):
         highest_value = 0
-        highest_index = 0 # be mindul of this otherwise rip Alabama
+        highest_index = 0
         index = 0
         # find largest decimal in the state quotas
         for decimal in quotas_decimal:
@@ -475,7 +475,7 @@ def lowndes_method(house_size, year):
     # assign remaining seats one by one to states whose quotas have the largest decimals
     for i in range (0, remaining_seats):
         lowest_value = 1
-        lowest_index = 0 # be mindul of this otherwise rip Alabama
+        lowest_index = 0
         index = 0
         # find largest decimal in the state quotas
         for decimal in quotas_decimal:
@@ -608,7 +608,7 @@ def huntington_hill_method(house_size, year):
 
         priority_number = []
         highest = 0
-        highest_index = 0 # check for Alabama issues
+        highest_index = 0
 
         # find the state to assign the next seat to
         for i in range (0, 50):
