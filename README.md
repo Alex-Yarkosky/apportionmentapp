@@ -18,6 +18,12 @@ Apportionment can be done individually with results displayed in the terminal or
 
 Clone the repository by downloading the ZIP, using GitHub Desktop, or using the follow command in the terminal: `git clone https://github.com/Alex-Yarkosky/apportionmentapp.git`.
 
+## Requirements
+
+In order to run the test suite, the following commands need to be run on the terminal line beforehand:
+
+* `pip install pytest`
+
 ## Running
 
 From a terminal based in the `src` folder, run the command `python apportionments.py` to run the program. Enter 0 anytime it prompts you to select a multiple choice option to exit the program.
